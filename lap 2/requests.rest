@@ -1,0 +1,10 @@
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+    "name": "James Bond", "year": 2021, "lead": "Daniel Craig"
+}
+
+###
+
+DELETE http://localhost:3000/movies/84

@@ -1,0 +1,16 @@
+{
+  "name": "lap-2-resit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "jest --silent --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express-api": "^0.0.0"
+  }
+}

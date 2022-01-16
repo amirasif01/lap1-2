@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Movies</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- <link rel="stylesheet" href="static/css/index.css"> -->
+  
+</head>
+<body>
+    <nav>
+        </span>
+        <div id="linkset">
+            <button type="button" onclick="getAll()">Get Movies</button>
+            <button class="button button2">insert</button>
+        </div>
+    </nav>
+    
+    <main>
+        <h1 class="title">Welcome to the Movie Selector</h1>
+        <div id="addMovie">
+            <h2>Add Movie</h2>
+            <!-- creating movie form  -->
+            <form action="" method="post">
+                <label for="">Name</label><input id ="name" type="text" name="name"><br>
+                <label for="">Lead</label><input id ="lead" type="text" name="lead"><br>
+                <label for="">Year</label><input id ="year" type="number" name="year"><br>
+                <!-- button - event onclick to allow submission  --> 
+                <input type="submit" onclick="postMovie(event)" value="Add">
+            </form>
+        </div>
+    </main>
+    <div id="movies"></div>
+    <!-- <section id="modal" style="display: none;">
+        <i><a href="#">x</a></i>
+        <h2></h2>
+        <article></article>
+    </section>  -->
+    
+    
+    <!-- <script src='static/js/layout.js'></script>
+    <script src='static/js/modal.js'></script> -->
+    <!-- <script defer src='static/js/requests.js'></script> -->
+    
+    <script>
+        // getting all movies
+        // calling url retrieve all movies
+        // no async function here because not needed to wait for function to run - replied quickly
+    function getAll(){
+    fetch('http://localhost:3000/movies')
+    .then(
+    function(response) {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          response.status);
+        return;
+      }
+
+      // Examine the text in the response
+      response.json().then(function(data) {
+        console.log(data);
+        let output = ""
+        // collecting movies data
+        data.forEach(movie => {
+            output +=`${movie.name}, ${movie.lead}, ${movie.year} <button onclick="deleteMovie(${movie.id})">Delete</button><br>`
+        });
+        // printing output on homepage
+        document.getElementById("movies").innerHTML = output;
+      });
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });
+}
+// deleting by id
+// 
+function deleteMovie(id){
+    try {
+        const options = { method: 'DELETE' }
+        // options - method delete
+        fetch(`http://localhost:3000/movies/${id}`, options);
+    } catch (err) {
+        console.warn(err);
+    }}
+
+//     getAll() - this function - of you wish to display the movies upon loading the homepage
+
+    function postMovie(e){
+        console.log("posting")
+    e.preventDefault();
+    try {
+        let body = {
+            name: document.getElementById('name').value,
+            lead: document.getElementById('lead').value,
+            year: document.getElementById('year').value
+        }
+        const options = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        }
+        console.log(body)
+        const response = fetch('http://localhost:3000/movies/', options)
+    } catch (err) {
+        console.warn(err);
+    }
+}
+// request js was not working - when inputting data
+    </script>
+</body>
+</html>
+
+<!-- add movie, press add, click get movie - refresh to see result -->
+<!-- to see list of movies - click get movie -->
+<!-- delete button - see changes applied click get movie to see updated list -->
